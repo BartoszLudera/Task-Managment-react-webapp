@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function ProjectDetails(){
+export default function ProjectDetails({title}){
     return(
         <div>
-            <h1>Title</h1>
+            <h1>{title}</h1>
             <button>Edit</button>
             <button>Delete</button>
             <p>date</p>

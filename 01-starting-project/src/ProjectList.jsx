@@ -55,7 +55,7 @@ export default function ProjectPage() {
                 </div>
                 <div className="flex-grow mr-auto w-full p-20">
                     {isProjectDetailsOpen ? (
-                        <ProjectDetails />
+                        <ProjectDetails title={projectDetails.title}/>
                     ) : (  
                     isProjectOpen ? (
                         <NewProjectDetails
