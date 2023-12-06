@@ -14,9 +14,6 @@ export default function ProjectPage() {
         setIsProjectOpen(true);
     };
 
-    const openProjectDetails = () => {
-        setIsProjectDetailsOpen(true)
-    }
 
     const saveProjectDetails = (details) => {
         setProjectDetails(details);
@@ -25,6 +22,11 @@ export default function ProjectPage() {
 
     const closeProjectDetails = () => {
         setIsProjectOpen(false);
+    };
+
+    const openProjectDetails = (project) => {
+        setProjectDetails(project);
+        setIsProjectDetailsOpen(true);
     };
 
 
@@ -44,9 +46,15 @@ export default function ProjectPage() {
                                 </button>
                             </div>
                             <ul className="mt-6 space-y-2 tracking-wide">
-                                {projectDetails.map((project) => {
+                                {projectDetails.map((project, index) => {
                                     return (
-                                        <ProjectComponent onClick={openProjectDetails} title={project.title} description={project.description} dueDate={project.dueDate} />
+                                        <ProjectComponent
+                                            key={index}
+                                            onClick={() => openProjectDetails(project)}
+                                            title={project.title}
+                                            description={project.description}
+                                            dueDate={project.dueDate}
+                                        />
                                     );
                                 })}
                             </ul>
@@ -55,19 +63,19 @@ export default function ProjectPage() {
                 </div>
                 <div className="flex-grow mr-auto w-full p-20">
                     {isProjectDetailsOpen ? (
-                        <ProjectDetails title={projectDetails.title}/>
-                    ) : (  
-                    isProjectOpen ? (
-                        <NewProjectDetails
-                            saveProjectDetails={saveProjectDetails}
-                            onClose={closeProjectDetails}
-                            setProjectDetails={setProjectDetails}
-                            projectDetails={projectDetails}
-                        />
+                        <ProjectDetails projectDetails={projectDetails} />
                     ) : (
-                        <NoneProject onAddProject={addProjectHandler} />
-                    ))
-                }
+                        isProjectOpen ? (
+                            <NewProjectDetails
+                                saveProjectDetails={saveProjectDetails}
+                                onClose={closeProjectDetails}
+                                setProjectDetails={setProjectDetails}
+                                projectDetails={projectDetails}
+                            />
+                        ) : (
+                            <NoneProject onAddProject={addProjectHandler} />
+                        ))
+                    }
                 </div>
 
             </div>
